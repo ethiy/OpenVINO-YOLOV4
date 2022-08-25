@@ -20,7 +20,9 @@ tf.app.flags.DEFINE_string(
 tf.app.flags.DEFINE_bool(
     'tiny', False, 'Use tiny version of YOLOv4')
 tf.app.flags.DEFINE_integer(
-    'size', 416, 'Image size')
+    'height', 480, 'Image height')
+tf.app.flags.DEFINE_integer(
+    'width', 640, 'Image width')
 
 
 
@@ -33,7 +35,7 @@ def main(argv=None):
     classes = load_coco_names(FLAGS.class_names)
 
     # placeholder for detector inputs
-    inputs = tf.placeholder(tf.float32, [None, FLAGS.size, FLAGS.size, 3], "inputs")
+    inputs = tf.placeholder(tf.float32, [None, FLAGS.height, FLAGS.width, 3], "inputs")
 
     with tf.variable_scope('detector'):
         detections = model(inputs, len(classes), data_format=FLAGS.data_format)
